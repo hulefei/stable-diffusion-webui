@@ -33,17 +33,18 @@ RUN --mount=type=cache,target=/cache --mount=type=cache,target=/root/.cache/pip 
 
 ENV ROOT=/stable-diffusion-webui
 
+COPY . ${ROOT}
 
 # COPY --from=download /repositories/ ${ROOT}/repositories/
 # RUN mkdir ${ROOT}/interrogate && cp ${ROOT}/repositories/clip-interrogator/clip_interrogator/data/* ${ROOT}/interrogate
-# RUN --mount=type=cache,target=/root/.cache/pip \
-#   pip install -r ${ROOT}/repositories/CodeFormer/requirements.txt
+RUN --mount=type=cache,target=/root/.cache/pip \
+  pip install -r ${ROOT}/repositories/CodeFormer/requirements.txt
 
-# RUN --mount=type=cache,target=/root/.cache/pip \
-#   pip install pyngrok \
-#   git+https://github.com/TencentARC/GFPGAN.git@8d2447a2d918f8eba5a4a01463fd48e45126a379 \
-#   git+https://github.com/openai/CLIP.git@d50d76daa670286dd6cacf3bcd80b5e4823fc8e1 \
-#   git+https://github.com/mlfoundations/open_clip.git@bb6e834e9c70d9c27d0dc3ecedeebeaeb1ffad6b
+RUN --mount=type=cache,target=/root/.cache/pip \
+  pip install pyngrok \
+  git+https://github.com/TencentARC/GFPGAN.git@8d2447a2d918f8eba5a4a01463fd48e45126a379 \
+  git+https://github.com/openai/CLIP.git@d50d76daa670286dd6cacf3bcd80b5e4823fc8e1 \
+  git+https://github.com/mlfoundations/open_clip.git@bb6e834e9c70d9c27d0dc3ecedeebeaeb1ffad6b
 
 
 # Note: don't update the sha of previous versions because the install will take forever
@@ -60,13 +61,15 @@ ENV LD_PRELOAD=libtcmalloc.so
 #   git reset --hard ${SHA} && \
 #   pip install -r requirements_versions.txt
 
-COPY . ${ROOT}
+RUN --mount=type=cache,target=/root/.cache/pip \
+  pip install -r ${ROOT}/requirements_docker.txt
 
-RUN pip install -r ${ROOT}/requirements_docker.txt
-RUN pip install -r ${ROOT}/requirements_versions.txt
+RUN --mount=type=cache,target=/root/.cache/pip \
+  pip install -r ${ROOT}/requirements_versions.txt
 
-RUN pip install clip
-RUN pip install gdown
+# RUN pip install clip
+# RUN pip install gdown
+# RUN pip install open_clip_torch
 
 # RUN \
 #   python3 /docker/info.py ${ROOT}/modules/ui.py && \
