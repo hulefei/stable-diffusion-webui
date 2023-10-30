@@ -8,3 +8,5 @@ https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/
   out=Stable-diffusion/sd_xl_refiner_1.0_0.9vae.safetensors
 https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors
   out=Stable-diffusion/v1-5-pruned-emaonly.safetensors
+https://civitai.com/api/download/models/5581?type=Pruned%20Model&format=SafeTensor&size=pruned&fp=fp16
+  out=Stable-diffusion/anythingelseV4_v45.safetensors

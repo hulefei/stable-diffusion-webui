@@ -2,7 +2,7 @@ version: '3.9'
 
 x-base_service: &base_service
     volumes:
-      - &v1 ./models:/models
+      - &v1 ./models:/stable-diffusion-webui/models
     stop_signal: SIGKILL
     tty: true
     deploy:
@@ -20,6 +20,8 @@ services:
     <<: *base_service
     container_name: download-auto
     build: ./download/
+    volumes:
+      - ./models:/models
 
   auto:
     <<: *base_service
@@ -28,5 +30,7 @@ services:
     ports:
       - "7860:7860"
     build: .
+    volumes:
+      - ./models:/stable-diffusion-webui/models
     environment:
       - CLI_ARGS=--allow-code --medvram --xformers --enable-insecure-extension-access --api
