@@ -4,7 +4,7 @@ x-base_service: &base_service
     ports:
       - "${WEBUI_PORT:-7860}:7860"
     volumes:
-      - &v1 ./data:/data
+      - &v1 ./models:/models
     stop_signal: SIGKILL
     tty: true
     deploy:
@@ -19,15 +19,16 @@ name: webui-docker
 
 services:
   download:
-    build: ./services/download/
-    profiles: ["download"]
-    volumes:
-      - *v1
+    <<: *base_service
+    container_name: download
+    build: ./download/
 
-  auto: &automatic
+  auto:
     <<: *base_service
     ports:
       - "7860:7860"
     build: .
+    depends_on:
+      - download
     environment:
       - CLI_ARGS=--allow-code --medvram --xformers --enable-insecure-extension-access --api
