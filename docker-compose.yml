@@ -23,6 +23,8 @@ services:
 
   auto:
     <<: *base_service
+    depends_on:
+      - download
     ports:
       - "7860:7860"
     build: .
