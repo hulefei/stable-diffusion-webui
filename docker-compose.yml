@@ -30,6 +30,6 @@ services:
     build: .
     volumes:
       - ./models:/stable-diffusion-webui/models
-      - ./output:/stable-diffusion-webui/outputs
+      - ./outputs:/stable-diffusion-webui/outputs
     environment:
       - CLI_ARGS=--allow-code --medvram --xformers --enable-insecure-extension-access --api
