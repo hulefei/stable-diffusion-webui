@@ -14,17 +14,17 @@ x-base_service: &base_service
 name: webui-docker
 
 services:
-  download:
-    <<: *base_service
-    container_name: download-auto
-    build: ./download/
-    volumes:
-      - ./models:/models
+  # download:
+  #   <<: *base_service
+  #   container_name: download-auto
+  #   build: ./download/
+  #   volumes:
+  #     - ./models:/models
 
   auto:
-    <<: *base_service
-    depends_on:
-      - download
+    # <<: *base_service
+    # depends_on:
+    #   - download
     ports:
       - "7860:7860"
     build: .
