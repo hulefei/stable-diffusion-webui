@@ -22,7 +22,7 @@ services:
   #     - ./models:/models
 
   auto:
-    # <<: *base_service
+    <<: *base_service
     # depends_on:
     #   - download
     ports:
